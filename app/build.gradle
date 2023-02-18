@@ -12,8 +12,8 @@ group "tech.harmless.fileindexer"
 version "1.0.0-ALPHA"
 description = "A simple file indexer in java"
 
-sourceCompatibility = 19
-targetCompatibility = 19
+sourceCompatibility = 17
+targetCompatibility = 17
 
 repositories {
     mavenCentral()
