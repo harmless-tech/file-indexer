@@ -5,6 +5,7 @@ plugins {
 
     id "com.github.spotbugs" version "5.0.13"
     id "org.beryx.jlink" version "2.26.0"
+    id "org.kordamp.gradle.jdeps" version "0.20.0"
     id "com.github.gmazzo.buildconfig" version "3.1.0"
 }
 
