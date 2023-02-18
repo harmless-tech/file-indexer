@@ -28,14 +28,17 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: test
+          cache-read-only: false
       - name: Gradle build
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
+          cache-read-only: false
       - name: Gradle distZip
         uses: gradle/gradle-build-action@v2
         with:
           arguments: distZip
+          cache-read-only: false
       - name: Artifact reports
         uses: actions/upload-artifact@v3
         with:
