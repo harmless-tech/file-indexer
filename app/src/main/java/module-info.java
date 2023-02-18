@@ -3,4 +3,7 @@ module tech.harmless.fileindexer {
     requires static lombok;
     requires static org.jetbrains.annotations;
     requires static com.github.spotbugs.annotations;
+
+    // Java
+    requires java.base;
 }
