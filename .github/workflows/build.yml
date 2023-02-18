@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-linux:
     strategy:
       fail-fast: false
       matrix:
@@ -33,27 +33,121 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
-          cache-read-only: false
       - name: Gradle distZip
         uses: gradle/gradle-build-action@v2
         with:
           arguments: distZip
-          cache-read-only: false
       - name: Artifact reports
         uses: actions/upload-artifact@v3
         with:
-          name: build-reports-${{ matrix.jdk }}
+          name: ${{ runner.os }}-${{ matrix.jdk }}-reports
           path: |
             app/build/reports
       - name: Artifact libs
         uses: actions/upload-artifact@v3
         with:
-          name: build-libs-${{ matrix.jdk }}
+          name: ${{ runner.os }}-${{ matrix.jdk }}-libs
           path: |
             app/build/libs
       - name: Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: build-dist-${{ matrix.jdk }}
+          name: ${{ runner.os }}-${{ matrix.jdk }}-dist
+          path: |
+            app/build/distributions/app-*.zip
+
+  build-macos:
+    strategy:
+      fail-fast: false
+      matrix:
+        jdk:
+          - 17
+          - 18
+          - 19
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ matrix.jdk }}
+          distribution: temurin
+      - name: Gradle test
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: test
+          cache-read-only: false
+      - name: Gradle build
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+      - name: Gradle distZip
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: distZip
+      - name: Artifact reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ runner.os }}-${{ matrix.jdk }}-reports
+          path: |
+            app/build/reports
+      - name: Artifact libs
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ runner.os }}-${{ matrix.jdk }}-libs
+          path: |
+            app/build/libs
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ runner.os }}-${{ matrix.jdk }}-dist
+          path: |
+            app/build/distributions/app-*.zip
+
+  build-windows:
+    strategy:
+      fail-fast: false
+      matrix:
+        jdk:
+          - 17
+          - 18
+          - 19
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ matrix.jdk }}
+          distribution: temurin
+      - name: Gradle test
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: test
+          cache-read-only: false
+      - name: Gradle build
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+      - name: Gradle distZip
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: distZip
+      - name: Artifact reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ runner.os }}-${{ matrix.jdk }}-reports
+          path: |
+            app/build/reports
+      - name: Artifact libs
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ runner.os }}-${{ matrix.jdk }}-libs
+          path: |
+            app/build/libs
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ runner.os }}-${{ matrix.jdk }}-dist
           path: |
             app/build/distributions/app-*.zip
