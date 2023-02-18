@@ -3,9 +3,12 @@ package tech.harmless.fileindexer;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class AppTest {
-    @Test void appHasAGreeting() {
-//        App classUnderTest = new App();
-//        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+public class AppTest {
+    @Test
+    public void appHasBuildConfig() {
+        assertNotNull(BuildConfig.NAME);
+        assertNotNull(BuildConfig.VERSION);
+        assertNotNull(BuildConfig.DESCRIPTION);
+        assertNotNull(BuildConfig.COMMIT_HASH);
     }
 }
