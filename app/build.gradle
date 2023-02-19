@@ -3,6 +3,7 @@ plugins {
     id "java"
     id "idea"
 
+    id "com.diffplug.spotless" version "6.15.0"
     id "com.github.spotbugs" version "5.0.13"
     id "org.beryx.jlink" version "2.26.0"
     id "org.kordamp.gradle.jdeps" version "0.20.0"
@@ -75,6 +76,15 @@ tasks.register("debug") {
         application.applicationDefaultJvmArgs.asList().add("-ea")
     }
     finalizedBy "run"
+}
+
+spotless {
+    java {
+        target "src/*/java/**"
+
+        googleJavaFormat().aosp().reflowLongStrings()
+        formatAnnotations()
+    }
 }
 
 spotbugs {
