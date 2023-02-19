@@ -49,6 +49,15 @@ buildConfig {
     buildConfig.buildConfigField("boolean", "DEBUG", "false")
 }
 
+tasks.processResources {
+    doLast {
+        copy {
+            from "$rootDir/LICENSE"
+            into "$buildDir/resources/main/tech/harmless/fileindexer/resources"
+        }
+    }
+}
+
 application {
     mainModule = group as String
     mainClass = group + ".App"
@@ -81,7 +90,7 @@ spotbugsMain {
     }
 }
 
-tasks.named("test") {
+tasks.test {
     useJUnitPlatform()
 }
 
