@@ -54,7 +54,7 @@ jobs:
         with:
           name: ${{ runner.os }}-${{ matrix.jdk }}-dist
           path: |
-            app/build/distributions/app-*.zip
+            app/build/distributions/*.zip
 
   build-macos:
     strategy:
@@ -102,7 +102,7 @@ jobs:
         with:
           name: ${{ runner.os }}-${{ matrix.jdk }}-dist
           path: |
-            app/build/distributions/app-*.zip
+            app/build/distributions/*.zip
 
   build-windows:
     strategy:
@@ -150,4 +150,4 @@ jobs:
         with:
           name: ${{ runner.os }}-${{ matrix.jdk }}-dist
           path: |
-            app/build/distributions/app-*.zip
+            app/build/distributions/*.zip
