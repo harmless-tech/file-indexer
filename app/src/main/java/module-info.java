@@ -6,4 +6,8 @@ module tech.harmless.fileindexer {
 
     // Java
     requires java.base;
+
+    // Logging
+    requires org.apache.logging.log4j;
+    requires org.apache.logging.log4j.core;
 }
