@@ -17,6 +17,9 @@ description = "A simple file indexer in java"
 sourceCompatibility = 17
 targetCompatibility = 17
 
+applicationName = rootProject.name
+archivesBaseName = rootProject.name
+
 repositories {
     mavenCentral()
 }
@@ -43,7 +46,7 @@ buildConfig {
     def commitHash = "git rev-parse --verify HEAD".execute()
     commitHash.waitFor()
 
-    buildConfigField("String", "NAME", "\"file-indexer\"")
+    buildConfigField("String", "NAME", "\"${applicationName}\"")
     buildConfigField("String", "VERSION", "\"${version}\"")
     buildConfigField("String", "DESCRIPTION", "\"${description}\"")
     buildConfigField("String", "COMMIT_HASH", "\"${commitHash.text.trim()}\"")
@@ -62,7 +65,7 @@ tasks.processResources {
 application {
     mainModule = group as String
     mainClass = group + ".App"
-    applicationDefaultJvmArgs = ["-Dfile.encoding=UTF-8", "-Xmx4G"]
+    applicationDefaultJvmArgs = ["-Dfile.encoding=UTF-8"]
 }
 
 tasks.register("debug") {
@@ -118,12 +121,12 @@ jlink {
     imageZip = file("$buildDir/image-zip/file-indexer.zip")
     options = ["--strip-debug", "--compress", "2", "--no-header-files", "--no-man-pages"]
     launcher {
-        name = "file-indexer"
+        name = applicationName
         jvmArgs = ["-Dfile.encoding=UTF-8"]
         noConsole = false
     }
     jpackage {
-        imageName = "file-indexer"
+        imageName = applicationName
         appVersion = version.split("-")[0]
         vendor = "harmless-tech"
 
